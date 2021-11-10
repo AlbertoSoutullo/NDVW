@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
-    
-    public float speed = 5f;
-    
-    
+
+    public float speed;
+
+    private Rigidbody _rigidbody;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -24,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
         
         Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
 
-        GetComponent<Rigidbody>().velocity = movement * (speed * Time.deltaTime);
-
+        _rigidbody.velocity = movement * (speed * Time.deltaTime);
     }
 }
