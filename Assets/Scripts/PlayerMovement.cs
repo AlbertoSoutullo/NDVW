@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float speed;
-
+    public float rotationSpeed;
+    
     private Rigidbody _rigidbody;
     private Animator _animationController;
 
@@ -30,5 +31,12 @@ public class PlayerMovement : MonoBehaviour
 
         this._rigidbody.velocity = movement * (speed * Time.deltaTime);
         this._animationController.SetFloat(Speed, movement.magnitude);
+
+        if (movement != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
+            transform.rotation =
+                Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 }
