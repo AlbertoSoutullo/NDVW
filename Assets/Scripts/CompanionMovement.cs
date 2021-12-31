@@ -13,7 +13,7 @@ public class CompanionMovement : MonoBehaviour
     
     private Animator _animationController;
     private Rigidbody _rigidbody;
-    private NavMeshAgent _navMeshAgent;
+    public UnityEngine.AI.NavMeshAgent _navMeshAgent;
     
     FiniteStateMachine<CompanionMovement> stateMachine;
 
@@ -51,24 +51,63 @@ public class CompanionMovement : MonoBehaviour
                .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) < weaponRangeDistance);
     }
     
-    
+    public float DistanceWithPlayer()
+    {
+        return Vector3.Distance(this.transform.position, this.player.position);
+    }
+
+    // Returns the closest enemy that can be attacked by the companion
+    public GameObject GetClosestEnemy()
+    {
+        // Iterate over all those enemies that can be attacked
+        // (close enough to player so that the companion can attack them
+        // while not being to far from the player)
+        IEnumerable<GameObject> closeEnemies = EnemiesThatCanBeAttacked();
+        GameObject targetEnemy = null;
+        float minimumDistance = float.MaxValue;
+        // Find the closest enemy to player that can be attacked
+        foreach (GameObject enemy in closeEnemies)
+        {
+            float distanceToPlayer = Vector3.Distance(enemy.transform.position, this.player.position);
+            if (distanceToPlayer < minimumDistance)
+            {
+                minimumDistance = distanceToPlayer;
+                targetEnemy = enemy;
+            }
+        }
+        return targetEnemy;
+    }
+
+    // Simple function to stop any walking animation (NavMeshAgent too)
+    public void StopWalking()
+    {
+        this._navMeshAgent.SetDestination(this.transform.position);
+        this._animationController.SetFloat(speedForAnimations, 0);
+    }
+
+    // Simple function to walk to a certain destination using the NavMeshAgent
+    public void WalkTo(Vector3 destination)
+    {
+        this._navMeshAgent.SetDestination(destination);
+        this._animationController.SetFloat(speedForAnimations, this._rigidbody.velocity.magnitude);
+        this.transform.LookAt(destination);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         this._animationController = GetComponent<Animator>();
         this._rigidbody = GetComponent<Rigidbody>();
-        this._navMeshAgent = GetComponent<NavMeshAgent>();
+        this._navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         
-        stateMachine = new FiniteStateMachine<CompanionMovement>(this);
-        stateMachine.CurrentState = IdleState.Instance;
+        this.stateMachine = new FiniteStateMachine<CompanionMovement>(this);
+        GetFSM().ChangeState(IdleState.Instance);
     }
 
     // Update is called once per frame
     void Update ()
-    {    
-        this._navMeshAgent.SetDestination(player.position);
-        Debug.Log(this._rigidbody.velocity);
-        this._animationController.SetFloat(speedForAnimations, this._rigidbody.velocity.magnitude);
-        this.transform.LookAt(player);
+    {
+        GetFSM().Update();
+
     }
 }
