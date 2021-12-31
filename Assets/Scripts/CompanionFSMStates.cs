@@ -23,20 +23,28 @@ public class IdleState : FSMState<CompanionMovement>
 
 	public override void Execute(CompanionMovement companion)
 	{
+		// First of all stop any possible ongoing walking animation
+		companion.StopWalking();
 		Transform player = companion.player;
-		if (Vector3.Distance(companion.transform.position, player.position) >= companion.playerMaxDistance)
+		// If too far from player, follow the player
+		if (companion.DistanceWithPlayer() >= companion.playerMaxDistance)
+		{
+			Debug.Log("Too far from player so changing to FollowPlayerState");
 			companion.GetFSM().ChangeState(FollowPlayerState.Instance);
+		}
 		// If companion does not have any arrows, point to closest
 		if (companion.arrows < 1)
 		{
 
 		}
-		// If any enemy can be attacked, go to attacking mode
-		IEnumerable<GameObject> enemiesThatCanBeAttacked = companion.EnemiesThatCanBeAttacked();
-		if (enemiesThatCanBeAttacked.Count() > 0)
+        // If any enemy can be attacked, go to attacking mode
+        if (companion.EnemiesThatCanBeAttacked().Count() > 0)
+        {
+			Debug.Log("An enemy can be attacked so changing to FollowPlayerState");
 			companion.GetFSM().ChangeState(ChooseTargetState.Instance);
+		}
 
-	}
+    }
 
 	public override void Exit(CompanionMovement companion)
 	{
@@ -75,16 +83,16 @@ public class FollowPlayerState : FSMState<CompanionMovement>
 	public override void Execute(CompanionMovement companion)
 	{
 		// If further than companion.playerMaxDistance from the player,
-		// just move towards the player.
+		// just move towards the player
 		Transform player = companion.player;
-		if (Vector3.Distance(companion.transform.position, player.position) >= companion.playerMaxDistance)
-		{
-			Vector3 follow = player.position;
-			follow.y = companion.transform.position.y;
-			companion.transform.position = Vector3.MoveTowards(companion.transform.position, follow, companion.Speed * Time.deltaTime);
-		}
+		if (companion.DistanceWithPlayer() >= companion.playerMaxDistance)
+			companion.WalkTo(player.position);
+		// Whenever close enough to the player, go back to idle
 		else
+		{
+			Debug.Log("Close enough to player so changing to IdleState");
 			companion.GetFSM().ChangeState(IdleState.Instance);
+		}
 	}
 
 	public override void Exit(CompanionMovement companion)
@@ -125,26 +133,22 @@ public class ChooseTargetState : FSMState<CompanionMovement>
 	{
 		// From those enemies that the companion can see,
 		// select the closest to the player
-		IEnumerable<GameObject> close_enemies = companion.EnemiesThatCanBeAttacked();
-		GameObject target_enemy = null;
-		float minimum_distance = float.MaxValue;
-		foreach (GameObject enemy in close_enemies)
-		{
-			float distance_to_player = Vector3.Distance(enemy.transform.position, companion.player.position);
-			if (distance_to_player < minimum_distance)
-			{
-				minimum_distance = distance_to_player;
-				target_enemy = enemy;
-			}
-		}
-		companion.currentTarget = target_enemy;
+		companion.currentTarget = companion.GetClosestEnemy();
 
-		Debug.Log(target_enemy);
-		Debug.Log(companion);
 		// If the companion is already in weapon range
-		// with target, proceed to load the bow
-		if (Vector3.Distance(target_enemy.transform.position, companion.player.position) < companion.weaponRangeDistance)
+		// with target, load the bow
+		if (Vector3.Distance(companion.currentTarget.transform.position, companion.transform.position) < companion.weaponRangeDistance)
+		{
+			Debug.Log("An enemy is close enough so changing to RechargeState");
 			companion.GetFSM().ChangeState(RechargeState.Instance);
+		}
+		// Otherwise, move close enough to target and then
+		// load the bow
+		else
+		{
+			Debug.Log("Too far from enemy so changing to RelocateState");
+			companion.GetFSM().ChangeState(RelocateState.Instance);
+		}
 	}
 
 	public override void Exit(CompanionMovement companion)
@@ -183,14 +187,153 @@ public class RechargeState : FSMState<CompanionMovement>
 
 	public override void Execute(CompanionMovement companion)
 	{
-		// If the companion's weapon is not charged, charge it
+		// If the companion's weapon is not charged,
+        // charge it then attack
 		if (!companion.weaponIsCharged)
 		{
 			Debug.Log("Charging weapon");
 			companion.weaponIsCharged = true;
 		}
-		companion.GetFSM().ChangeState(RechargeState.Instance);
+		Debug.Log("Weapon is charged so changing to AttackState");
+		companion.GetFSM().ChangeState(AttackState.Instance);
 
+	}
+
+	public override void Exit(CompanionMovement companion)
+	{
+	}
+
+	// Start is called before the first frame update
+	void Start()
+	{
+
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
+}
+
+public class RelocateState : FSMState<CompanionMovement>
+{
+	static readonly RelocateState instance = new RelocateState();
+	public static RelocateState Instance { get { return instance; } }
+
+	private bool desiredLocationSet;
+	private Vector3 desiredLocation;
+
+	static RelocateState()
+	{
+	}
+	RelocateState()
+	{
+	}
+
+	public override void Enter(CompanionMovement companion)
+	{
+		Debug.Log("Entering RelocateState");
+		desiredLocationSet = false;
+	}
+
+	public override void Execute(CompanionMovement companion)
+	{
+		// First of all compute the location to go
+		// (close enough to both player and target)
+		if (!desiredLocationSet)
+        {
+			Debug.Log("Computing location to attack current target while within player's range");
+			desiredLocation =
+				companion.player.transform.position
+				+ (companion.currentTarget.transform.position - companion.player.transform.position)
+				  * companion.playerMaxDistance / (companion.playerMaxDistance + companion.weaponRangeDistance);
+			desiredLocationSet = true;
+		}
+		// Then move to said location and recharge
+		else
+			companion.WalkTo(desiredLocation);
+		if (Vector3.Distance(desiredLocation, companion.transform.position) < 1)
+		{
+			Debug.Log("Arrived in desired location so changing to RechargeState");
+			companion.StopWalking();
+			companion.GetFSM().ChangeState(RechargeState.Instance);
+		}
+
+
+	}
+
+	public override void Exit(CompanionMovement companion)
+	{
+	}
+
+	// Start is called before the first frame update
+	void Start()
+	{
+
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
+}
+
+public class AttackState : FSMState<CompanionMovement>
+{
+	static readonly AttackState instance = new AttackState();
+	public static AttackState Instance { get { return instance; } }
+
+	private bool desiredLocationSet;
+	private Vector3 desiredLocation;
+
+	static AttackState()
+	{
+	}
+	AttackState()
+	{
+	}
+
+	public override void Enter(CompanionMovement companion)
+	{
+		Debug.Log("Entering AttackState");
+	}
+
+	public override void Execute(CompanionMovement companion)
+	{
+		// First of all attack the target
+		Debug.Log("Attacking target " + companion.currentTarget.ToString());
+		// If no enemy can be attacked anymore, go back to idle
+		GameObject currentClosestEnemy = companion.GetClosestEnemy();
+		if (currentClosestEnemy == null)
+		{
+			Debug.Log("No enemies can be attacked anymore so changing to IdleState");
+			companion.GetFSM().ChangeState(IdleState.Instance);
+		}
+		// If another enemy is closer, change target
+		else if (currentClosestEnemy != companion.currentTarget)
+		{
+			Debug.Log("Current target is no longer the closest so changing to ChooseTargetState");
+			companion.GetFSM().ChangeState(ChooseTargetState.Instance);
+
+		}
+		else
+		{
+			// If not close enough (I think it's impossible though)
+			// relocate again
+			if (Vector3.Distance(companion.transform.position, companion.currentTarget.transform.position) > companion.weaponRangeDistance)
+			{
+				Debug.Log("No longer in current target's range so changing to RelocateState");
+				companion.GetFSM().ChangeState(RelocateState.Instance);
+			}
+			// Otherwise recharge and attack again
+			else
+			{
+				Debug.Log("In current target's range so changing to RechargeState");
+				companion.GetFSM().ChangeState(RechargeState.Instance);
+			}
+		}
 	}
 
 	public override void Exit(CompanionMovement companion)
