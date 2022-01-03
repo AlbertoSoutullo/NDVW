@@ -139,8 +139,8 @@ public class ChooseTargetState : FSMState<CompanionMovement>
 		// with target, load the bow
 		if (Vector3.Distance(companion.currentTarget.transform.position, companion.transform.position) < companion.weaponRangeDistance)
 		{
-			Debug.Log("An enemy is close enough so changing to RechargeState");
-			companion.GetFSM().ChangeState(RechargeState.Instance);
+			Debug.Log("An enemy is close enough so changing to AttackState");
+			companion.GetFSM().ChangeState(AttackState.Instance);
 		}
 		// Otherwise, move close enough to target and then
 		// load the bow
@@ -250,14 +250,14 @@ public class RelocateState : FSMState<CompanionMovement>
 				  * companion.playerMaxDistance / (companion.playerMaxDistance + companion.weaponRangeDistance);
 			desiredLocationSet = true;
 		}
-		// Then move to said location and recharge
+		// Then move to said location and attack
 		else
 			companion.WalkTo(desiredLocation);
 		if (Vector3.Distance(desiredLocation, companion.transform.position) < 1)
 		{
-			Debug.Log("Arrived in desired location so changing to RechargeState");
+			Debug.Log("Arrived in desired location so changing to AttackState");
 			companion.StopWalking();
-			companion.GetFSM().ChangeState(RechargeState.Instance);
+			companion.GetFSM().ChangeState(AttackState.Instance);
 		}
 
 
@@ -294,44 +294,51 @@ public class AttackState : FSMState<CompanionMovement>
 	AttackState()
 	{
 	}
-
 	public override void Enter(CompanionMovement companion)
 	{
 		Debug.Log("Entering AttackState");
+		// First of all attack the target
+		Debug.Log("Attacking target " + companion.currentTarget.ToString());
+		companion.Attack();
 	}
 
 	public override void Execute(CompanionMovement companion)
 	{
-		// First of all attack the target
-		Debug.Log("Attacking target " + companion.currentTarget.ToString());
-		// If no enemy can be attacked anymore, go back to idle
-		GameObject currentClosestEnemy = companion.GetClosestEnemy();
-		if (currentClosestEnemy == null)
-		{
-			Debug.Log("No enemies can be attacked anymore so changing to IdleState");
-			companion.GetFSM().ChangeState(IdleState.Instance);
-		}
-		// If another enemy is closer, change target
-		else if (currentClosestEnemy != companion.currentTarget)
-		{
-			Debug.Log("Current target is no longer the closest so changing to ChooseTargetState");
-			companion.GetFSM().ChangeState(ChooseTargetState.Instance);
+		companion.transform.LookAt(companion.currentTarget.transform.position);
 
-		}
-		else
+		if (companion.IsAttackAnimationFinished())
 		{
-			// If not close enough (I think it's impossible though)
-			// relocate again
-			if (Vector3.Distance(companion.transform.position, companion.currentTarget.transform.position) > companion.weaponRangeDistance)
+			companion.FinishAttack();
+
+			// If no enemy can be attacked anymore, go back to idle
+			GameObject currentClosestEnemy = companion.GetClosestEnemy();
+			if (currentClosestEnemy == null)
 			{
-				Debug.Log("No longer in current target's range so changing to RelocateState");
-				companion.GetFSM().ChangeState(RelocateState.Instance);
+				Debug.Log("No enemies can be attacked anymore so changing to IdleState");
+				companion.GetFSM().ChangeState(IdleState.Instance);
 			}
-			// Otherwise recharge and attack again
+			// If another enemy is closer, change target
+			else if (currentClosestEnemy != companion.currentTarget)
+			{
+				Debug.Log("Current target is no longer the closest so changing to ChooseTargetState");
+				companion.GetFSM().ChangeState(ChooseTargetState.Instance);
+
+			}
 			else
 			{
-				Debug.Log("In current target's range so changing to RechargeState");
-				companion.GetFSM().ChangeState(RechargeState.Instance);
+				// If not close enough (I think it's impossible though)
+				// relocate again
+				if (Vector3.Distance(companion.transform.position, companion.currentTarget.transform.position) > companion.weaponRangeDistance)
+				{
+					Debug.Log("No longer in current target's range so changing to RelocateState");
+					companion.GetFSM().ChangeState(RelocateState.Instance);
+				}
+				// Otherwise recharge and attack again
+				// else
+				// {
+				// Debug.Log("In current target's range so keeping in AttackState");
+				// this.GetFSM().ChangeState(AttackState.Instance);
+				// }
 			}
 		}
 	}
