@@ -10,7 +10,7 @@ public class CompanionMovement : MonoBehaviour
     public Transform player;
     
     private static readonly int speedForAnimations = Animator.StringToHash("speed");
-    
+
     private Animator _animationController;
     private Rigidbody _rigidbody;
     public UnityEngine.AI.NavMeshAgent _navMeshAgent;
@@ -89,8 +89,31 @@ public class CompanionMovement : MonoBehaviour
     public void WalkTo(Vector3 destination)
     {
         this._navMeshAgent.SetDestination(destination);
-        this._animationController.SetFloat(speedForAnimations, this._rigidbody.velocity.magnitude);
+        this._animationController.SetFloat("speed", this._rigidbody.velocity.magnitude);
         this.transform.LookAt(destination);
+    }
+
+    IEnumerator OnCompleteAttackAnimation()
+    {
+        yield return new WaitUntil(() => this._animationController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        this._animationController.SetBool("shoot", false);
+
+    }
+
+    public bool IsAttackAnimationFinished()
+    {
+        return this._animationController.GetCurrentAnimatorStateInfo(0).IsName("Shoot")
+               && this._animationController.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+    }
+
+    public void Attack()
+    {
+        this._animationController.SetBool("shoot", true);
+    }
+
+    public void FinishAttack()
+    {
+		this._animationController.SetBool("shoot", false);
     }
 
     // Start is called before the first frame update
