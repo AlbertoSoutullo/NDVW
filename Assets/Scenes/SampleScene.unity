@@ -382,6 +382,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 600344081}
   player: {fileID: 0}
+  fullColor: {r: 0, g: 0, b: 0, a: 0}
+  lowColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &210906262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2080,7 +2082,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 729713856}
-  player: {fileID: 0}
+  player: {fileID: 8115531283567793887}
+  fullColor: {r: 0, g: 1, b: 0.3233118, a: 1}
+  lowColor: {r: 0.8773585, g: 0.20769063, b: 0.120016046, a: 1}
 --- !u!114 &1088284494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2429,6 +2433,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 501688844}
   player: {fileID: 0}
+  fullColor: {r: 0, g: 0, b: 0, a: 0}
+  lowColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!224 &2044260137
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4494,7 +4500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
-  healthBar: {fileID: 2044260136}
+  healthBar: {fileID: 1088284493}
 --- !u!136 &8115531283567793888
 CapsuleCollider:
   m_ObjectHideFlags: 0
