@@ -5,61 +5,29 @@ public class MapGenerator : MonoBehaviour {
 
     public int mapWidth;
     public int mapHeight;
-    public float noiseScale;
 
-    public int octaves;
-    [Range(0,1)]
-    public float persistance;
-    public float lacunarity;
+    public TerrainData terrainData;
+    public NoiseData noiseData;
+    public TextureData textureData;
 
-    public int seed;
-    public Vector2 offset;
-
-    public float meshHeightMultiplier;
-
-    public bool autoUpdate;
-
-    public TerrainType[] regions;
+    public Material terrainMaterial;
 
     public void GenerateMap() {
-        float[,] noiseMap = Noise.GenerateNoiseMap (mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
-
-        Color[] colourMap = new Color[mapWidth * mapHeight];
-        for (int y = 0; y < mapHeight; y++) {
-            for (int x = 0; x < mapWidth; x++) {
-                float currentHeight = noiseMap [x, y];
-                for (int i = 0; i < regions.Length; i++) {
-                    if (currentHeight <= regions [i].height) {
-                        colourMap [y * mapWidth + x] = regions [i].colour;
-                        break;
-                    }
-                }
-            }
-        }
-
+        float[,] noiseMap = Noise.GenerateNoiseMap (mapWidth, mapHeight, noiseData.seed, noiseData.noiseScale, noiseData.octaves, noiseData.persistance, noiseData.lacunarity, noiseData.offset);
         MapDisplay display = FindObjectOfType<MapDisplay> ();
-        display.DrawMesh (MeshGenerator.GenerateTerrainMesh (noiseMap, meshHeightMultiplier), TextureGenerator.TextureFromColourMap (colourMap, mapWidth, mapHeight));
+        textureData.UpdateMeshHeights (terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+        textureData.ApplyToMaterial(terrainMaterial);
+        display.DrawMesh (MeshGenerator.GenerateTerrainMesh (noiseMap, terrainData.meshHeightMultiplier, terrainData.meshHeightCurve));
     }
 
-    void OnValidate() {
-        if (mapWidth < 1) {
+    private void OnValidate() {
+        if (mapWidth < 1) 
+        {
             mapWidth = 1;
         }
-        if (mapHeight < 1) {
+        if (mapHeight < 1) 
+        {
             mapHeight = 1;
         }
-        if (lacunarity < 1) {
-            lacunarity = 1;
-        }
-        if (octaves < 0) {
-            octaves = 0;
-        }
     }
-}
-
-[System.Serializable]
-public struct TerrainType {
-    public string name;
-    public float height;
-    public Color colour;
 }
