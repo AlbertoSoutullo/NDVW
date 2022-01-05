@@ -6,9 +6,12 @@ public class MapDisplay : MonoBehaviour {
     public Renderer textureRender;
     public MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
+    public MeshCollider meshCollider;
 
     public void DrawMesh(MeshData meshData) {
-        meshFilter.sharedMesh = meshData.CreateMesh ();
+        Mesh mesh = meshData.CreateMesh ();
+        meshFilter.sharedMesh = mesh;
+        meshCollider.sharedMesh = mesh;
     }
 
 }

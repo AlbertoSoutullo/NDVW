@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -11,6 +12,11 @@ public class MapGenerator : MonoBehaviour {
     public TextureData textureData;
 
     public Material terrainMaterial;
+
+    public void Start()
+    {
+        GenerateMap();
+    }
 
     public void GenerateMap() {
         float[,] noiseMap = Noise.GenerateNoiseMap (mapWidth, mapHeight, noiseData.seed, noiseData.noiseScale, noiseData.octaves, noiseData.persistance, noiseData.lacunarity, noiseData.offset);
