@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -7,6 +9,14 @@ public class Enemy : MonoBehaviour
     public Transform projectilePoint;
 
     public Animator animator;
+
+    public GameObject arrowToSpawn;
+    private NavMeshAgent _navMeshAgent;
+    
+    private void Start()
+    {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+    }
 
     public void Shoot()
     {
@@ -21,11 +31,28 @@ public class Enemy : MonoBehaviour
         if(enemyHP <= 0)
         {
             animator.SetTrigger("Death");
-            GetComponent<CapsuleCollider>().enabled = false;
+            // GetComponent<CapsuleCollider>().enabled = false;
+            spawnArrows();
+            Destroy(gameObject);
         }
         else
         {
             animator.SetTrigger("Damage");
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Arrow(Clone)")
+        {
+            TakeDamage(50);
+            _navMeshAgent.speed /= 2;
+        }
+    }
+
+    private void spawnArrows()
+    {
+        Instantiate(arrowToSpawn, transform.position, transform.rotation);
+    }
+    
 }
