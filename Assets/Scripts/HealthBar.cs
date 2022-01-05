@@ -9,9 +9,15 @@ public class HealthBar : MonoBehaviour
     
     public Image healthBarImage;
     public Player player;
-    
-    public void UpdateHealthBar() {
+    public Color fullColor;
+    public Color lowColor;
+
+    public void UpdateHealthBar()
+    {
+        Debug.Log(fullColor.ToString()); Debug.Log(lowColor.ToString());
+        Debug.Log(healthBarImage.ToString()); Debug.Log(player.ToString());
         healthBarImage.fillAmount = Mathf.Clamp(player.health / player.maxHealth, 0, 1f);
+        healthBarImage.color = Color.Lerp(lowColor, fullColor, healthBarImage.fillAmount);
     }
 
 }
