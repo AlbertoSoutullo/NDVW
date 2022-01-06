@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
+
 
 public class MapGenerator : MonoBehaviour {
 
@@ -12,12 +14,15 @@ public class MapGenerator : MonoBehaviour {
     public TextureData textureData;
     public PrefabsData prefabsData;
 
+    public NavMeshSurface surface;
+
     public Material terrainMaterial;
 
     public void Start()
     {
         MeshData mesh = GenerateMap();
         GeneratePrefabs(mesh);
+        GenerateNavMesh();
     }
 
     public MeshData GenerateMap() {
@@ -49,6 +54,11 @@ public class MapGenerator : MonoBehaviour {
         // instantiate the prefabs
         MapDisplay display = FindObjectOfType<MapDisplay> ();
         display.InstantiatePrefabs(prefabsInternalData);
+    }
+
+    public void GenerateNavMesh()
+    {
+        surface.BuildNavMesh();
     }
 
     private void OnValidate() {
