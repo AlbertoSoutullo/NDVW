@@ -97,7 +97,6 @@ public class CompanionMovement : MonoBehaviour
     {
         yield return new WaitUntil(() => this._animationController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
         this._animationController.SetBool("shoot", false);
-
     }
 
     public bool IsAttackAnimationFinished()
@@ -109,6 +108,17 @@ public class CompanionMovement : MonoBehaviour
     public void Attack()
     {
         this._animationController.SetBool("shoot", true);
+        arrows -= 1;
+    }
+
+    public void Point()
+    {
+        this._animationController.SetBool("noAmmo", true);
+    }
+
+    public void FinishPointing()
+    {
+        this._animationController.SetBool("noAmmo", false);
     }
 
     public void FinishAttack()

@@ -35,7 +35,8 @@ public class IdleState : FSMState<CompanionMovement>
 		// If companion does not have any arrows, point to closest
 		if (companion.arrows < 1)
 		{
-
+			Debug.Log("No arrows.");
+			companion.GetFSM().ChangeState(PointState.Instance);
 		}
         // If any enemy can be attacked, go to attacking mode
         if (companion.EnemiesThatCanBeAttacked().Count() > 0)
@@ -93,6 +94,49 @@ public class FollowPlayerState : FSMState<CompanionMovement>
 			Debug.Log("Close enough to player so changing to IdleState");
 			companion.GetFSM().ChangeState(IdleState.Instance);
 		}
+	}
+
+	public override void Exit(CompanionMovement companion)
+	{
+	}
+
+	// Start is called before the first frame update
+	void Start()
+	{
+
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
+}
+
+
+public class PointState : FSMState<CompanionMovement>
+{
+	static readonly PointState instance = new PointState();
+	public static PointState Instance { get { return instance; } }
+
+	static PointState()
+	{
+	}
+	PointState()
+	{
+	}
+
+	public override void Enter(CompanionMovement companion)
+	{
+		Debug.Log("Entering PointState");
+	}
+
+	public override void Execute(CompanionMovement companion)
+	{
+		companion.Point();
+		companion.FinishPointing();
+		Debug.Log("Going back to IdleState");
+		companion.GetFSM().ChangeState(IdleState.Instance);
 	}
 
 	public override void Exit(CompanionMovement companion)
