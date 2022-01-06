@@ -41,6 +41,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void DoDamage()
+    {
+        var boxCollider = GetComponent<BoxCollider>();
+        // boxCollider.enabled = true;
+        // boxCollider.c
+        // boxCollider.enabled = false;
+
+        Collider[] cols = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, boxCollider.transform.rotation);
+
+        foreach (Collider c in cols)
+        {
+            if (c.transform.parent == transform) continue;
+            c.SendMessageUpwards("TakeDamage", 20);
+        }
+    }
+    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "Arrow(Clone)")

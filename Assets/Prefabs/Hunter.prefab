@@ -1568,7 +1568,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 0}
   playerMaxDistance: 5
   weaponRangeDistance: 8
-  arrows: 10
+  arrows: 1
   visionRangeDistance: 25
   weaponIsCharged: 1
   currentTarget: {fileID: 0}

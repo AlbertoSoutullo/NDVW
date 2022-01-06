@@ -12,17 +12,13 @@ public class Player: MonoBehaviour
 
     public GameObject hunter;
     
-    public void TakeDamage(){
+    public void TakeDamage(int damage){
         // Use your own damage handling code, or this example one.
-        health -= Mathf.Min( Random.value, health / 4f );            
+        health -= Mathf.Min( damage, health / 4f );            
         healthBar.UpdateHealthBar();
     }
     
     void Update(){
-        // Example so we can test the Health Bar functionality
-        if(Input.GetKeyDown(KeyCode.Space)){
-            TakeDamage();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,4 +29,5 @@ public class Player: MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    
 }
