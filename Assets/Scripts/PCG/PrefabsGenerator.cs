@@ -6,16 +6,29 @@ using System.Linq;
 
 public static class PrefabsGenerator {
 
-    public static PrefabsInternalData DeterminePrefabsPositions(int mapWidth, int mapHeight, float heightMultiplier, Vector3[] positions, PrefabsData prefabsData) {
+    public static PrefabsInternalData DeterminePrefabsPositions(int mapWidth, int mapHeight, float heightMultiplier, Vector3[] oldPositions, PrefabsData prefabsData) {
         System.Random random = new System.Random();
         
         AnimationCurve noiseImportance = prefabsData.noiseImportance;
         PrefabsData.Prefab[] prefabs = prefabsData.prefabs;
         
-        // create the noise maps for all prefabs
+        // create objects for the display class later on
         List<float[,]> noiseMaps = new List<float[,]>();
-        List<Transform>[] prefabsTransforms = new List<Transform>[prefabs.Length];
-        String[] transformsNames = new String[prefabs.Length];
+        Vector3[] positions = new Vector3[oldPositions.Length + 1];
+        Array.Copy(oldPositions, positions, oldPositions.Length);
+        List<Transform>[] prefabsTransforms = new List<Transform>[prefabs.Length + 1];
+        String[] transformsNames = new String[prefabs.Length + 1];
+        
+        // add cabin objects
+        prefabsTransforms[prefabs.Length] = new List<Transform>();
+        prefabsTransforms[prefabs.Length].Add(prefabsData.cabinPrefab.Transform);
+        transformsNames[prefabs.Length] = "cabin";
+        
+        // determine cabin position
+        Vector3 cabinPosition = DetermineCabinPosition(positions, prefabsData.cabinPrefab.heightImportance, heightMultiplier, random);
+        positions[oldPositions.Length] = cabinPosition;
+
+        // create the noise maps for all prefabs
         for (int i = 0; i < prefabs.Length; ++i)
         {
             float[,] noiseMap = Noise.GenerateNoiseMap (
@@ -34,6 +47,9 @@ public static class PrefabsGenerator {
         
         // create the internal data object for display everything later on
         PrefabsInternalData prefabsInternalData = new PrefabsInternalData(positions, prefabsTransforms, transformsNames);
+        
+        // add cabin
+        prefabsInternalData.AddPositionPrefabs(oldPositions.Length, prefabs.Length);
 
         // loop all positions and determine whether to instantiate the prefabs
         for (int i = 0; i < positions.Length; ++i)
@@ -62,6 +78,54 @@ public static class PrefabsGenerator {
         }
 
         return prefabsInternalData;
+    }
+
+    private static Vector3 DetermineCabinPosition(Vector3[] positions, AnimationCurve heightImportance, float heightMultiplier, System.Random random)
+    {
+        // randomly sample a set of positions
+        List<Vector3> randomlySampledPositions = new List<Vector3>();
+        for (int i = 0; i < 40; ++i)
+        {
+            randomlySampledPositions.Add(positions[random.Next(positions.Length)]);
+        }
+        
+        // give a weight to each position regarding the height
+        float[] weights = new float[randomlySampledPositions.Count];
+        float totalWeight = heightImportance.Evaluate(randomlySampledPositions[0][1] / heightMultiplier);
+        float maxWeight = totalWeight;
+        int maxWeightIndex = 0;
+        for (int i = 1; i < weights.Length; ++i)
+        {
+            weights[i] = heightImportance.Evaluate(randomlySampledPositions[i][1] / heightMultiplier);
+            if (weights[i] > maxWeight)
+            {
+                maxWeight = weights[i];
+                maxWeightIndex = i;
+            }
+            totalWeight += weights[i];
+        }
+        
+        // sample one of the positions with the given weights (Fitness proportionate selection approach) 
+        float total = 0;
+        float amount = UnityEngine.Random.Range(0.0f, totalWeight);
+        int selectedIndex = -1;
+        for (int i = 0; i < weights.Length; ++i){
+            total += weights[i];
+            if (amount <= total)
+            {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        if (selectedIndex != 1)
+        {
+            return randomlySampledPositions[selectedIndex];
+        }
+        else
+        {
+            return randomlySampledPositions[maxWeightIndex];
+        }
     }
 }
 

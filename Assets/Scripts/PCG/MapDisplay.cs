@@ -34,6 +34,7 @@ public class MapDisplay : MonoBehaviour {
         {
             Vector3 position = prefabsInternalData.positions[prefabsPositions[i].Item1];
             List<Transform> prefabTransforms = prefabsInternalData.transforms[prefabsPositions[i].Item2];
+            // sample a random item from the transforms list
             Transform prefabTransform = prefabTransforms[random.Next(prefabTransforms.Count)];
             
             var prefab = Instantiate(prefabTransform, parents[prefabsPositions[i].Item2].transform);
