@@ -304,7 +304,6 @@ public class AttackState : FSMState<CompanionMovement>
 
 	public override void Execute(CompanionMovement companion)
 	{
-		companion.transform.LookAt(companion.currentTarget.transform.position);
 
 		if (companion.IsAttackAnimationFinished())
 		{
@@ -341,6 +340,8 @@ public class AttackState : FSMState<CompanionMovement>
 				// }
 			}
 		}
+		else if (companion.currentTarget != null)
+			companion.transform.LookAt(companion.currentTarget.transform.position);
 	}
 
 	public override void Exit(CompanionMovement companion)
