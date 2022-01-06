@@ -22,14 +22,14 @@ MonoBehaviour:
   - texture: {fileID: 2800000, guid: cedec51993bd7a4da8fc0938c24ba056, type: 3}
     tint: {r: 0.9056604, g: 0.8041187, b: 0.46564615, a: 0}
     tintStrength: 0
-    startHeight: 0.044
+    startHeight: 0.01
     blendStrength: 0.02
     textureScale: 5
   - texture: {fileID: 2800000, guid: 2780b78d6ecf3d36e90fa58a75495ed7, type: 3}
     tint: {r: 0.35408506, g: 0.6886792, b: 0.27058825, a: 0}
     tintStrength: 0
-    startHeight: 0.118
-    blendStrength: 0.04
+    startHeight: 0.03
+    blendStrength: 0.02
     textureScale: 7
   - texture: {fileID: 2800000, guid: 0a068b7a9e3fc058682ee79f984ff7e6, type: 3}
     tint: {r: 0.5566038, g: 0.39786264, b: 0.21266466, a: 0}
