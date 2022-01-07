@@ -10,6 +10,8 @@ public class MapGenerator : MonoBehaviour {
     public int mapWidth;
     public int mapHeight;
 
+    public CameraMovement cameraMovement;
+
     public TerrainData terrainData;
     public NoiseData noiseData;
     public TextureData textureData;
@@ -26,8 +28,8 @@ public class MapGenerator : MonoBehaviour {
     {
         MeshData mesh = GenerateMap();
         GeneratePrefabs(mesh);
-        GenerateNavMesh();
         GeneratePlayerAndHunter();
+        GenerateNavMesh();
     }
 
     public void GeneratePlayerAndHunter()
@@ -47,8 +49,10 @@ public class MapGenerator : MonoBehaviour {
         Vector3 positionPlayer = new Vector3(0, positionYPlayer, 0);
         Vector3 positionHunter = new Vector3(3, positionYHunter, 0);
 
-        Instantiate(player, positionPlayer, Quaternion.identity);
+        var playerObject = Instantiate(player, positionPlayer, Quaternion.identity);
         Instantiate(hunter, positionHunter, Quaternion.identity);
+
+        cameraMovement.target = playerObject.transform;
     }
 
     public MeshData GenerateMap() {
