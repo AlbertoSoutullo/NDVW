@@ -148,10 +148,43 @@ public class CompanionMovement : MonoBehaviour
     public void FinishAttack()
     {
 		this._animationController.SetBool("shoot", false);
-    }
 
-    // Start is called before the first frame update
-    void Start()
+		// If no enemy can be attacked anymore, go back to idle
+		GameObject currentClosestEnemy = this.GetClosestEnemy();
+		if (currentClosestEnemy == null)
+		{
+			Debug.Log("No enemies can be attacked anymore so changing to IdleState");
+			this.GetFSM().ChangeState(IdleState.Instance);
+		}
+		// If another enemy is closer, change target
+		else if (currentClosestEnemy != this.currentTarget)
+		{
+			Debug.Log("Current target is no longer the closest so changing to ChooseTargetState");
+			this.GetFSM().ChangeState(ChooseTargetState.Instance);
+
+		}
+		else
+		{
+			// If not close enough (I think it's impossible though)
+			// relocate again
+			if (Vector3.Distance(this.transform.position, this.currentTarget.transform.position) > this.weaponRangeDistance)
+			{
+				Debug.Log("No longer in current target's range so changing to RelocateState");
+				this.GetFSM().ChangeState(RelocateState.Instance);
+			}
+			else
+				this.GetFSM().ChangeState(AttackState.Instance);
+			// Otherwise recharge and attack again
+			// else
+			// {
+			// Debug.Log("In current target's range so keeping in AttackState");
+			// this.GetFSM().ChangeState(AttackState.Instance);
+			// }
+		}
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         this._animationController = GetComponent<Animator>();
         this._rigidbody = GetComponent<Rigidbody>();
