@@ -1564,11 +1564,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82297e2ef4e7b5944a81ca976e9e576d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 596986486491690963, guid: ab893ec60fed71d45a81bca1e1758671, type: 3}
   _navMeshAgent: {fileID: 0}
   playerMaxDistance: 5
   weaponRangeDistance: 8
-  arrows: 1
+  arrows: 5
   visionRangeDistance: 25
   weaponIsCharged: 1
   currentTarget: {fileID: 0}

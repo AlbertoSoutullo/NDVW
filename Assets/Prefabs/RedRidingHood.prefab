@@ -179,10 +179,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 13.1104555
-  m_Height: 39.239998
+  m_Radius: 13.110456
+  m_Height: 36.04549
   m_Direction: 1
-  m_Center: {x: -0.39, y: 19.53, z: -1.64}
+  m_Center: {x: -0.39000064, y: 21.127254, z: -1.6399994}
 --- !u!95 &217083897110588752
 Animator:
   serializedVersion: 3
@@ -249,6 +249,8 @@ MonoBehaviour:
     m_Bits: 8
   Enemy: {fileID: 1604578897047870077, guid: 09a0ebff9e004394da934fa661257406, type: 3}
   maxRadious: 10
+  minSpawnTime: 15
+  maxSpawnTime: 30
 --- !u!1 &755875577650313240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2479,7 +2481,7 @@ MonoBehaviour:
   player: {fileID: 217083897110588779}
   fullColor: {r: 0, g: 1, b: 0.3233118, a: 1}
   lowColor: {r: 0.8773585, g: 0.20769063, b: 0.120016046, a: 1}
-  Camera: {fileID: 0}
+  Camera: {fileID: 7742830597722940148, guid: 0ffbe2e6b9950fc408cd8df149474db4, type: 3}
 --- !u!1 &8373697437911789511
 GameObject:
   m_ObjectHideFlags: 0
