@@ -156,8 +156,9 @@ public class CompanionMovement : MonoBehaviour
         this._animationController = GetComponent<Animator>();
         this._rigidbody = GetComponent<Rigidbody>();
         this._navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        
-        this.stateMachine = new FiniteStateMachine<CompanionMovement>(this);
+		this.player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+
+		this.stateMachine = new FiniteStateMachine<CompanionMovement>(this);
         GetFSM().ChangeState(IdleState.Instance);
     }
 
