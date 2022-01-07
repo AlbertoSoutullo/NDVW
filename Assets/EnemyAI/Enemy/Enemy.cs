@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
 
         foreach (Collider c in cols)
         {
-            if (c.gameObject.name == "RedRidingHood")
+            if (c.gameObject.name == "RedRidingHood(Clone)")
             {
                 c.gameObject.GetComponent<Player>().TakeDamage(20);
             }

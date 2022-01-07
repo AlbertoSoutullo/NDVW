@@ -1482,7 +1482,7 @@ GameObject:
   - component: {fileID: 8766213488042176624}
   m_Layer: 6
   m_Name: Hunter
-  m_TagString: Untagged
+  m_TagString: Hunter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1568,7 +1568,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 0}
   playerMaxDistance: 5
   weaponRangeDistance: 8
-  arrows: 5
+  arrows: 8
   visionRangeDistance: 25
   weaponIsCharged: 1
   currentTarget: {fileID: 0}

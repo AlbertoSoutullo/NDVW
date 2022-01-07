@@ -18,7 +18,8 @@ public class Player: MonoBehaviour
         healthBar.UpdateHealthBar();
     }
     
-    void Update(){
+    void Start(){
+        this.hunter = GameObject.FindGameObjectsWithTag("Hunter")[0];
     }
 
     private void OnTriggerEnter(Collider other)
