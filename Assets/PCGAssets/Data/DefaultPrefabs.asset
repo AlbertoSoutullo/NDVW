@@ -36,6 +36,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  cabinPrefab:
+    Transform: {fileID: 662760774420115199, guid: 942d7e303174e3526bbde067c4926d86, type: 3}
+    heightImportance:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   prefabs:
   - name: trees
     transforms:
@@ -67,8 +75,8 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.17638256
       - serializedVersion: 3
-        time: 0.26307675
-        value: 0.14992012
+        time: 0.18646237
+        value: 0.03922905
         inSlope: -0.029526588
         outSlope: -0.029526588
         tangentMode: 0
@@ -76,10 +84,10 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.09836148
       - serializedVersion: 3
-        time: 0.5812713
-        value: 0.0069082975
-        inSlope: -0.23182951
-        outSlope: -0.23182951
+        time: 0.5599853
+        value: 0.027141452
+        inSlope: -0.04487955
+        outSlope: -0.04487955
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
