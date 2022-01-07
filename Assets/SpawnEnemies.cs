@@ -26,7 +26,7 @@ public class SpawnEnemies : MonoBehaviour
         while (true)
         {
             
-            float secondsToWait = Random.Range(60.0f, 110.0f);
+            float secondsToWait = Random.Range(minSpawnTime, maxSpawnTime);
             yield return new WaitForSeconds(secondsToWait);
 
             float randomPositiony = 0;
