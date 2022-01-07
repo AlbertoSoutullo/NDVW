@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1639987689182440, guid: 1237551950c246d43ab02b1d69e6f317, type: 3}
       propertyPath: m_Name
-      value: bush 2
+      value: bush 2 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1639987689182440, guid: 1237551950c246d43ab02b1d69e6f317, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4867528393344068, guid: 1237551950c246d43ab02b1d69e6f317, type: 3}
       propertyPath: m_RootOrder

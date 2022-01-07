@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6046401056318511760}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Agrupation1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,9 +41,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6046401056318511760}
     m_Modifications:
+    - target: {fileID: 3565227486042720690, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_Name
       value: P_Bush05 Variant (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720694, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720700, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3565227486043084180, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_RootOrder
@@ -103,9 +119,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6046401056318511760}
     m_Modifications:
+    - target: {fileID: 3565227486042720690, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_Name
       value: P_Bush05 Variant (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720694, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720700, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3565227486043084180, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_RootOrder
@@ -165,9 +197,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6046401056318511760}
     m_Modifications:
+    - target: {fileID: 3565227486042720690, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_Name
       value: P_Bush05 Variant (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720694, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720700, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3565227486043084180, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_RootOrder
@@ -227,9 +275,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6046401056318511760}
     m_Modifications:
+    - target: {fileID: 3565227486042720690, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_Name
       value: P_Bush05 Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720692, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720694, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565227486042720700, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3565227486043084180, guid: 8dbeefe558e68d3278cfa112ffee80bb, type: 3}
       propertyPath: m_RootOrder

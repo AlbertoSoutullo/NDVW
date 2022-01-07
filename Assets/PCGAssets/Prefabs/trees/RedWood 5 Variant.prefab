@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1970681966781816, guid: a7984f59c227d0240b9771d2797a085c, type: 3}
       propertyPath: m_Name
-      value: RedWood 5 (1)
+      value: RedWood 5 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970681966781816, guid: a7984f59c227d0240b9771d2797a085c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4339898394216490, guid: a7984f59c227d0240b9771d2797a085c, type: 3}
       propertyPath: m_RootOrder

@@ -7,9 +7,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7992715529498131569, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7992715529498131577, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
       propertyPath: m_Name
       value: P_Bush02 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992715529498131577, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992715529498131579, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992715529498131581, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992715529498131583, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7992715529498157145, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
       propertyPath: m_RootOrder

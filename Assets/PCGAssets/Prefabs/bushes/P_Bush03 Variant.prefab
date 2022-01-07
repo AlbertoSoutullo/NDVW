@@ -63,9 +63,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835681, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835683, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835685, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835687, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835697, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6786704563919835699, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
       propertyPath: m_Name
       value: P_Bush03 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835699, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835701, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835703, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835705, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835707, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835709, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786704563919835711, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6786704563900488371, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}

@@ -7,9 +7,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2121115777601418449, guid: e334e6614ad50f749b0a37528784c614, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2121115777601418451, guid: e334e6614ad50f749b0a37528784c614, type: 3}
       propertyPath: m_Name
       value: P_Bush04 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121115777601418451, guid: e334e6614ad50f749b0a37528784c614, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121115777601418453, guid: e334e6614ad50f749b0a37528784c614, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121115777601418455, guid: e334e6614ad50f749b0a37528784c614, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121115777601418459, guid: e334e6614ad50f749b0a37528784c614, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2121115777601841393, guid: e334e6614ad50f749b0a37528784c614, type: 3}
       propertyPath: m_LocalPosition.z

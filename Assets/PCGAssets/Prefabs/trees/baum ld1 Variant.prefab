@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 6b4b29e49f76c9f46b7f3594d299d8d9, type: 3}
       propertyPath: m_Name
-      value: baum ld1
+      value: baum ld1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6b4b29e49f76c9f46b7f3594d299d8d9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6b4b29e49f76c9f46b7f3594d299d8d9, type: 3}
       propertyPath: m_RootOrder
@@ -65,6 +69,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6b4b29e49f76c9f46b7f3594d299d8d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 13600000, guid: 6b4b29e49f76c9f46b7f3594d299d8d9, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
