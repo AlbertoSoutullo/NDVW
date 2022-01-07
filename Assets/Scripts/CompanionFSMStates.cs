@@ -113,7 +113,6 @@ public class FollowPlayerState : FSMState<CompanionMovement>
 	}
 }
 
-
 public class PointState : FSMState<CompanionMovement>
 {
 	static readonly PointState instance = new PointState();
@@ -129,20 +128,22 @@ public class PointState : FSMState<CompanionMovement>
 	public override void Enter(CompanionMovement companion)
 	{
 		Debug.Log("Entering PointState");
-	}
-
-	public override void Execute(CompanionMovement companion)
-	{
 		GameObject arrow = companion.GetClosestArrow();
+		Debug.Log("Closest arrow is " + arrow.ToString());
 		if (arrow != null)
 		{
 			companion.transform.LookAt(arrow.transform.position);
 			companion.Point();
-			companion.FinishPointing();
 		}
+		else
+			companion.GetFSM().ChangeState(IdleState.Instance);
+	}
 
-		Debug.Log("Going back to IdleState");
-		companion.GetFSM().ChangeState(IdleState.Instance);
+	public override void Execute(CompanionMovement companion)
+	{
+
+		//Debug.Log("Going back to IdleState");
+		//companion.GetFSM().ChangeState(IdleState.Instance);
 	}
 
 	public override void Exit(CompanionMovement companion)
@@ -354,7 +355,8 @@ public class AttackState : FSMState<CompanionMovement>
 
 	public override void Execute(CompanionMovement companion)
 	{
-		companion.transform.LookAt(companion.currentTarget.transform.position);
+		if (companion.currentTarget != null)
+			companion.transform.LookAt(companion.currentTarget.transform.position);
 		//if (companion.IsAttackAnimationFinished())
 		//{
 		//	companion.FinishAttack();
