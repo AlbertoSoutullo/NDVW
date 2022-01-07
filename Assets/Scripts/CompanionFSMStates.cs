@@ -129,7 +129,6 @@ public class PointState : FSMState<CompanionMovement>
 	{
 		Debug.Log("Entering PointState");
 		GameObject arrow = companion.GetClosestArrow();
-		Debug.Log("Closest arrow is " + arrow.ToString());
 		if (arrow != null)
 		{
 			companion.transform.LookAt(arrow.transform.position);
@@ -349,7 +348,6 @@ public class AttackState : FSMState<CompanionMovement>
 	{
 		Debug.Log("Entering AttackState");
 		// First of all attack the target
-		Debug.Log("Attacking target " + companion.currentTarget.ToString());
 		companion.Attack();
 	}
 
