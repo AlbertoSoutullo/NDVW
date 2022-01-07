@@ -12,7 +12,11 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Invoke("SelectPlayer", 1);
+    }
 
+    public void SelectPlayer() {
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
