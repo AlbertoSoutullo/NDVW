@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
         rb.AddForce(transform.up * 7, ForceMode.Impulse);
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamageFromArrow(int damageAmount)
     {
         enemyHP -= damageAmount;
         if(enemyHP <= 0)
@@ -44,17 +44,19 @@ public class Enemy : MonoBehaviour
     public void DoDamage()
     {
         var boxCollider = GetComponent<BoxCollider>();
-        // boxCollider.enabled = true;
-        // boxCollider.c
-        // boxCollider.enabled = false;
+        boxCollider.enabled = true;
 
         Collider[] cols = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, boxCollider.transform.rotation);
 
         foreach (Collider c in cols)
         {
-            if (c.transform.parent == transform) continue;
-            c.SendMessageUpwards("TakeDamage", 20);
+            if (c.gameObject.name == "RedRidingHood")
+            {
+                c.gameObject.GetComponent<Player>().TakeDamage(20);
+            }
         }
+
+        boxCollider.enabled = false;
     }
     
 
@@ -62,8 +64,9 @@ public class Enemy : MonoBehaviour
     {
         if (other.name == "Arrow(Clone)")
         {
-            TakeDamage(50);
+            TakeDamageFromArrow(50);
             _navMeshAgent.speed /= 2;
+            Debug.Log("HIT");
         }
     }
 
