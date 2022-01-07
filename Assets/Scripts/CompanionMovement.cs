@@ -149,6 +149,12 @@ public class CompanionMovement : MonoBehaviour
     {
 		this._animationController.SetBool("shoot", false);
 
+		if (this.arrows <= 0)
+		{
+			Debug.Log("No arrows left so changing to PointState");
+			this.GetFSM().ChangeState(PointState.Instance);
+		}
+
 		// If no enemy can be attacked anymore, go back to idle
 		GameObject currentClosestEnemy = this.GetClosestEnemy();
 		if (currentClosestEnemy == null)
