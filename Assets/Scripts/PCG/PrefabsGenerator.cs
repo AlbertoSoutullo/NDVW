@@ -31,7 +31,7 @@ public static class PrefabsGenerator {
         // create the noise maps for all prefabs
         for (int i = 0; i < prefabs.Length; ++i)
         {
-            float[,] noiseMap = Noise.GenerateNoiseMap (
+            float[,] noiseMap = NoiseGenerator.GenerateNoiseMap (
                 mapWidth, 
                 mapHeight, 
                 prefabs[i].noise.seed, 

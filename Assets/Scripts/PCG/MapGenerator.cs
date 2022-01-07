@@ -56,7 +56,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     public MeshData GenerateMap() {
-        float[,] noiseMap = Noise.GenerateNoiseMap (mapWidth, mapHeight, noiseData.seed, noiseData.noiseScale, noiseData.octaves, noiseData.persistance, noiseData.lacunarity, noiseData.offset);
+        float[,] noiseMap = NoiseGenerator.GenerateNoiseMap (mapWidth, mapHeight, noiseData.seed, noiseData.noiseScale, noiseData.octaves, noiseData.persistance, noiseData.lacunarity, noiseData.offset);
         MapDisplay display = FindObjectOfType<MapDisplay> ();
         textureData.UpdateMeshHeights (terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
         textureData.ApplyToMaterial(terrainMaterial);
