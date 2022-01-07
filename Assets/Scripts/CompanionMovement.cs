@@ -44,6 +44,12 @@ public class CompanionMovement : MonoBehaviour
                                && Vector3.Distance(player.position, enemy.transform.position) < (weaponRangeDistance + playerMaxDistance));
     }
 
+    public IEnumerable<GameObject> ExistingArrows()
+    {
+        return GameObject.FindGameObjectsWithTag("SpawnedArrow")
+            .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) < visionRangeDistance);
+    }
+    
     // Enemies that are closer than weaponRangeDistance to the companion
     public IEnumerable<GameObject> EnemiesInWeaponRange()
     {
@@ -78,6 +84,24 @@ public class CompanionMovement : MonoBehaviour
         return targetEnemy;
     }
 
+    public GameObject GetClosestArrow()
+    {
+        IEnumerable<GameObject> arrows = ExistingArrows();
+        GameObject targetArrow = null;
+        float minimumDistance = float.MaxValue;
+
+        foreach (GameObject arrow in arrows)
+        {
+            float distanceToPlayer = Vector3.Distance(arrow.transform.position, this.player.position);
+            if (distanceToPlayer < minimumDistance)
+            {
+                minimumDistance = distanceToPlayer;
+                targetArrow = arrow;
+            }
+        }
+        return targetArrow;
+    }
+    
     // Simple function to stop any walking animation (NavMeshAgent too)
     public void StopWalking()
     {
@@ -141,6 +165,5 @@ public class CompanionMovement : MonoBehaviour
     void Update ()
     {
         GetFSM().Update();
-
     }
 }

@@ -133,8 +133,14 @@ public class PointState : FSMState<CompanionMovement>
 
 	public override void Execute(CompanionMovement companion)
 	{
-		companion.Point();
-		companion.FinishPointing();
+		GameObject arrow = companion.GetClosestArrow();
+		if (arrow != null)
+		{
+			companion.transform.LookAt(arrow.transform.position);
+			companion.Point();
+			companion.FinishPointing();
+		}
+
 		Debug.Log("Going back to IdleState");
 		companion.GetFSM().ChangeState(IdleState.Instance);
 	}
