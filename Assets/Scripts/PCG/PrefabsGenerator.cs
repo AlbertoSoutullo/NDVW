@@ -7,7 +7,7 @@ using System.Linq;
 public static class PrefabsGenerator {
 
     public static PrefabsInternalData DeterminePrefabsPositions(int mapWidth, int mapHeight, float heightMultiplier, Vector3[] oldPositions, PrefabsData prefabsData) {
-        System.Random random = new System.Random();
+        System.Random random = new System.Random(prefabsData.seed);
         
         AnimationCurve noiseImportance = prefabsData.noiseImportance;
         PrefabsData.Prefab[] prefabs = prefabsData.prefabs;
@@ -25,7 +25,7 @@ public static class PrefabsGenerator {
         transformsNames[prefabs.Length] = "cabin";
         
         // determine cabin position
-        Vector3 cabinPosition = DetermineCabinPosition(positions, prefabsData.cabinPrefab.heightImportance, heightMultiplier, random);
+        Vector3 cabinPosition = DetermineCabinPosition(positions, prefabsData.cabinPrefab.heightImportance, heightMultiplier, random, prefabsData.seed);
         positions[oldPositions.Length] = cabinPosition;
 
         // create the noise maps for all prefabs
@@ -80,7 +80,7 @@ public static class PrefabsGenerator {
         return prefabsInternalData;
     }
 
-    private static Vector3 DetermineCabinPosition(Vector3[] positions, AnimationCurve heightImportance, float heightMultiplier, System.Random random)
+    private static Vector3 DetermineCabinPosition(Vector3[] positions, AnimationCurve heightImportance, float heightMultiplier, System.Random random, int seed)
     {
         // randomly sample a set of positions
         List<Vector3> randomlySampledPositions = new List<Vector3>();
@@ -107,6 +107,7 @@ public static class PrefabsGenerator {
         
         // sample one of the positions with the given weights (Fitness proportionate selection approach) 
         float total = 0;
+        UnityEngine.Random.seed = seed;
         float amount = UnityEngine.Random.Range(0.0f, totalWeight);
         int selectedIndex = -1;
         for (int i = 0; i < weights.Length; ++i){

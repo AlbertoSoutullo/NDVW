@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba4a30f244d45d1bfc1d46bc4adef57, type: 3}
   m_Name: DefaultPrefabs
   m_EditorClassIdentifier: 
+  seed: 1
   noiseImportance:
     serializedVersion: 2
     m_Curve:

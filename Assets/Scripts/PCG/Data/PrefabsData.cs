@@ -6,6 +6,7 @@ using System.Linq;
 [CreateAssetMenu()]
 public class PrefabsData : ScriptableObject
 {
+    public int seed;
     public AnimationCurve noiseImportance;
     public CabinPrefab cabinPrefab; 
     public Prefab[] prefabs;
