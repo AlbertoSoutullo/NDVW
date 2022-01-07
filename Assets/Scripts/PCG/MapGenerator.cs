@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 
 public class MapGenerator : MonoBehaviour {
@@ -18,11 +19,36 @@ public class MapGenerator : MonoBehaviour {
 
     public Material terrainMaterial;
 
+    public GameObject player;
+    public GameObject hunter;
+    public LayerMask TerrainLayer;
     public void Start()
     {
         MeshData mesh = GenerateMap();
         GeneratePrefabs(mesh);
         GenerateNavMesh();
+        GeneratePlayerAndHunter();
+    }
+
+    public void GeneratePlayerAndHunter()
+    {
+        float positionYPlayer = 9999;
+        float positionYHunter = 9999;
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(0, 9999f, 0), Vector3.down,
+            out hit, Mathf.Infinity, TerrainLayer))
+        {
+            positionYPlayer = hit.point.y;
+            positionYHunter = hit.point.y;
+        }
+
+        positionYPlayer += 1.5f / 2;
+        positionYHunter += hunter.GetComponent<CapsuleCollider>().height / 2;
+        Vector3 positionPlayer = new Vector3(0, positionYPlayer, 0);
+        Vector3 positionHunter = new Vector3(3, positionYHunter, 0);
+
+        Instantiate(player, positionPlayer, Quaternion.identity);
+        Instantiate(hunter, positionHunter, Quaternion.identity);
     }
 
     public MeshData GenerateMap() {
